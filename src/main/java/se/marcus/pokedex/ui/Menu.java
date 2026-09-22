@@ -15,7 +15,7 @@ public class Menu {
 
         while (running) {
             System.out.println("=== Meny ===");
-            System.out.print(  "1. Visa alla Pokémons%n" +
+            System.out.printf(  "1. Visa alla Pokémons%n" +
                     "2. Lägg till ny Pokemon%n" +
                     "3. Redigera Pokemon%n" +
                     "4. Ta bort Pokemon%n%n%n" +
@@ -27,14 +27,19 @@ public class Menu {
             int choice = ConsoleInput.readIntInRange(scanner, "", 1,8);
 
            switch (choice) {
-                case 1 -> pokemonCollection.list();
-                case 2 -> addPokemon(scanner, pokemonCollection);
-                case 3 -> editPokemon(scanner, pokemonCollection);
-                case 4 -> deletePokemon(scanner, pokemonCollection);
-                /*case 5 -> ;
-                case 6 -> ;
-                case 7 -> ;*/
-                default -> System.out.println("Avslutar...");
+               case 1 -> pokemonCollection.list();
+               case 2 -> addPokemon(scanner, pokemonCollection);
+               case 3 -> editPokemon(scanner, pokemonCollection);
+               case 4 -> deletePokemon(scanner, pokemonCollection);
+               case 5 -> pokemonCollection.save();
+               case 6 -> pokemonCollection.load();
+               case 7 -> pokemonCollection.seed();
+               case 8 -> {
+                   pokemonCollection.save();
+                   System.out.println("Avslutar...");
+                   running = false;
+               }
+               default -> running = false;
             }
         }
     }

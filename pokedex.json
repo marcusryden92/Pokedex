@@ -1,0 +1,97 @@
+[ {
+  "name" : "Charmander",
+  "type" : "FIRE",
+  "maxHp" : 39,
+  "currentHp" : 39,
+  "attacks" : [ {
+    "name" : "Scratch",
+    "baseDmg" : 40,
+    "accuracy" : 100,
+    "type" : "NORMAL"
+  }, {
+    "name" : "Ember",
+    "baseDmg" : 40,
+    "accuracy" : 100,
+    "type" : "FIRE"
+  } ]
+}, {
+  "name" : "Squirtle",
+  "type" : "WATER",
+  "maxHp" : 44,
+  "currentHp" : 44,
+  "attacks" : [ {
+    "name" : "Tackle",
+    "baseDmg" : 40,
+    "accuracy" : 100,
+    "type" : "NORMAL"
+  }, {
+    "name" : "Water Gun",
+    "baseDmg" : 40,
+    "accuracy" : 100,
+    "type" : "WATER"
+  } ]
+}, {
+  "name" : "Bulbasaur",
+  "type" : "GRASS",
+  "maxHp" : 45,
+  "currentHp" : 45,
+  "attacks" : [ {
+    "name" : "Tackle",
+    "baseDmg" : 40,
+    "accuracy" : 100,
+    "type" : "NORMAL"
+  }, {
+    "name" : "Vine Whip",
+    "baseDmg" : 45,
+    "accuracy" : 100,
+    "type" : "GRASS"
+  } ]
+}, {
+  "name" : "Pikachu",
+  "type" : "ELECTRIC",
+  "maxHp" : 35,
+  "currentHp" : 35,
+  "attacks" : [ {
+    "name" : "Quick Attack",
+    "baseDmg" : 40,
+    "accuracy" : 100,
+    "type" : "NORMAL"
+  }, {
+    "name" : "Thunder Shock",
+    "baseDmg" : 40,
+    "accuracy" : 100,
+    "type" : "ELECTRIC"
+  } ]
+}, {
+  "name" : "Charizard",
+  "type" : "FIRE",
+  "maxHp" : 78,
+  "currentHp" : 78,
+  "attacks" : [ {
+    "name" : "Slash",
+    "baseDmg" : 70,
+    "accuracy" : 100,
+    "type" : "NORMAL"
+  }, {
+    "name" : "Flamethrower",
+    "baseDmg" : 90,
+    "accuracy" : 100,
+    "type" : "FIRE"
+  } ]
+}, {
+  "name" : "Blastoise",
+  "type" : "WATER",
+  "maxHp" : 79,
+  "currentHp" : 79,
+  "attacks" : [ {
+    "name" : "Bite",
+    "baseDmg" : 60,
+    "accuracy" : 100,
+    "type" : "NORMAL"
+  }, {
+    "name" : "Water Pulse",
+    "baseDmg" : 60,
+    "accuracy" : 100,
+    "type" : "WATER"
+  } ]
+} ]
