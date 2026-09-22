@@ -21,4 +21,16 @@ public class PokemonCollection {
     public void save() {}
 
     public void load() {}
+
+    public void add(Pokemon pokemon) {
+        pokemonCollection.add(pokemon);
+    }
+
+    public Pokemon get(int index) {
+        return pokemonCollection.get(index);
+    }
+
+    public void remove(int index) {
+        pokemonCollection.remove(index);
+    }
 }

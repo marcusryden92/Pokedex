@@ -1,12 +1,13 @@
 package se.marcus.pokedex.ui;
 
+import se.marcus.pokedex.model.Pokemon;
 import se.marcus.pokedex.model.PokemonCollection;
 
 import java.io.Console;
 import java.util.Scanner;
 
 public class Menu {
-    public static void run(PokemonCollection collection) {
+    public static void run(PokemonCollection pokemonCollection) {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
@@ -23,7 +24,7 @@ public class Menu {
 
             int choice = ConsoleInput.readIntInRange(scanner, "", 1,8);
 
-           switch (choice) {
+           /*switch (choice) {
                 case 1 -> collection.list();
                 case 2 -> collection.add();
                 case 3 -> ;
@@ -32,12 +33,11 @@ public class Menu {
                 case 6 -> ;
                 case 7 -> ;
                 default -> System.out.println("Avslutar...");
-            }
+            }*/
         }
     }
 
-    public static void addPokemon() {
-
+    public static void addPokemon(Pokemon pokemon) {
     }
 
     public static void editPokemon() {
