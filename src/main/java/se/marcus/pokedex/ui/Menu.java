@@ -28,10 +28,10 @@ public class Menu {
 
            switch (choice) {
                 case 1 -> pokemonCollection.list();
-                /*case 2 -> pokemonCollection.add();
-                case 3 -> ;
-                case 4 -> ;
-                case 5 -> ;
+                case 2 -> addPokemon(scanner, pokemonCollection);
+                case 3 -> editPokemon(scanner, pokemonCollection);
+                case 4 -> deletePokemon(scanner, pokemonCollection);
+                /*case 5 -> ;
                 case 6 -> ;
                 case 7 -> ;*/
                 default -> System.out.println("Avslutar...");
@@ -64,8 +64,35 @@ public class Menu {
         System.out.printf("%s tillagd.%n", pokemon.getName());
     }
 
-    public static void editPokemon() {
+    public static void editPokemon(Scanner scanner, PokemonCollection collection) {
+        int index = pickPokemonIndex(scanner, collection);
+        if (index == -1) return;
+        Pokemon pokemon = collection.get(index);
 
+        boolean editing = true;
+        while (editing) {
+            System.out.printf(
+                    "1. Namn (%s)%n2. Typ (%s)%n3. Max HP (%d)%n" +
+                            "4. Lägg till attack%n5. Ta bort attack%n6. Klar%n",
+                    pokemon.getName(), pokemon.getType(), pokemon.getMaxHp());
+
+            int choice = ConsoleInput.readIntInRange(scanner, "Val: ", 1, 6);
+            switch (choice) {
+                case 1 -> pokemon.setName(ConsoleInput.readString(scanner, "Nytt namn: "));
+                case 2 -> pokemon.setType(ConsoleInput.readElementType(scanner, "Ny typ:"));
+                case 3 -> pokemon.setMaxHp(ConsoleInput.readIntInRange(scanner, "Nytt max HP: ", 1, 999));
+                case 4 -> addAttack(scanner, pokemon);
+                case 5 -> {
+                    int a = ConsoleInput.readIntInRange(scanner, "Attacknummer att ta bort: ", 1, pokemon.getAttacks().size());
+                    try {
+                        pokemon.removeAttack(a - 1);
+                    } catch (InvalidPokemonException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+                default -> editing = false;
+            }
+        }
     }
 
     public static void addAttack(Scanner scanner, Pokemon pokemon) {
