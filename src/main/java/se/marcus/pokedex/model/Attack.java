@@ -13,4 +13,9 @@ public class Attack {
         this.accuracy = accuracy;
         this.type = type;
     }
+
+    public String getName()      { return name; }
+    public int getBaseDmg()      { return baseDmg; }
+    public int getAccuracy()     { return accuracy; }
+    public ElementType getType() { return type; }
 }
