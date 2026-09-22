@@ -19,6 +19,13 @@ public class PokemonCollection {
         }
     }
 
+    public void shortList() {
+        for (int i = 0; i < pokemonCollection.size(); i++) {
+            Pokemon pokemon = pokemonCollection.get(i);
+            System.out.printf("%d. Namn: %s%n", i, pokemon.getName());
+        }
+    }
+
     public void save() {}
 
     public void load() {}

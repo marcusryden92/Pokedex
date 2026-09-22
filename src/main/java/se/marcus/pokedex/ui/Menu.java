@@ -41,10 +41,10 @@ public class Menu {
 
     private static int pickPokemonIndex(Scanner scanner, PokemonCollection collection) {
         if (collection.size() == 0) {
-            System.out.println("Inga Pokémon finns.");
+            System.out.print("Inga Pokémon finns.");
             return -1;
         }
-        collection.list();
+        collection.shortList();
         return ConsoleInput.readIntInRange(scanner, "Välj nummer: ", 1, collection.size()) - 1;
     }
 
