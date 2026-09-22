@@ -31,11 +31,11 @@ public class ConsoleInput {
             int maxLength = 80;
 
             if (input.isEmpty()) {
-                System.out.println("Inmatningen får inte vara tom. Försök igen.");
+                System.out.print("Inmatningen får inte vara tom. Försök igen.");
                 continue;
             }
             if (!input.matches("[\\p{L}\\p{M} ]+")) {
-                System.out.println("Endast bokstäver och mellanslag är tillåtna.");
+                System.out.print("Endast bokstäver och mellanslag är tillåtna.");
                 continue;
             }
             if (input.length() > 80) {
