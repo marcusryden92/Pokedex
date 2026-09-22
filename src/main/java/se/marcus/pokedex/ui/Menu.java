@@ -39,7 +39,29 @@ public class Menu {
         }
     }
 
-    public static void addPokemon(Pokemon pokemon) {
+    private static int pickPokemonIndex(Scanner scanner, PokemonCollection collection) {
+        if (collection.size() == 0) {
+            System.out.println("Inga Pokémon finns.");
+            return -1;
+        }
+        collection.list();
+        return ConsoleInput.readIntInRange(scanner, "Välj nummer: ", 1, collection.size()) - 1;
+    }
+
+    public static void addPokemon(Scanner scanner, PokemonCollection collection) {
+        String name = ConsoleInput.readString(scanner, "Pokemonens namn: ");
+        ElementType type = ConsoleInput.readElementType(scanner, "Typ:");
+        int maxHp = ConsoleInput.readIntInRange(scanner, "Max HP: ", 1, 999);
+
+        Pokemon pokemon = new Pokemon(name, type, maxHp);
+
+        do {
+            addAttack(scanner, pokemon);
+        } while (pokemon.getAttacks().size() < 4
+                && ConsoleInput.readIntInRange(scanner, "Lägg till en till attack? (1=ja, 2=nej): ", 1, 2) == 1);
+
+        collection.add(pokemon);
+        System.out.printf("%s tillagd.%n", pokemon.getName());
     }
 
     public static void editPokemon() {
