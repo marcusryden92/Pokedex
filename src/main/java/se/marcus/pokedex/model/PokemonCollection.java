@@ -1,5 +1,6 @@
 package se.marcus.pokedex.model;
 
+import se.marcus.pokedex.exception.PokemonNotFoundException;
 import se.marcus.pokedex.persistence.JsonStorage;
 
 import java.nio.file.Path;
@@ -88,6 +89,15 @@ public class PokemonCollection {
 
     public Pokemon get(int index) {
         return pokemonCollection.get(index);
+    }
+
+    public Pokemon findByName(String name) {
+        for (Pokemon pokemon : pokemonCollection) {
+            if (pokemon.getName().equalsIgnoreCase(name)) {
+                return pokemon;
+            }
+        }
+        throw new PokemonNotFoundException("Ingen Pokémon med namnet \"" + name + "\" hittades.");
     }
 
     public void remove(int index) {

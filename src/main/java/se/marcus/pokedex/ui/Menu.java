@@ -1,6 +1,7 @@
 package se.marcus.pokedex.ui;
 
 import se.marcus.pokedex.exception.InvalidPokemonException;
+import se.marcus.pokedex.exception.PokemonNotFoundException;
 import se.marcus.pokedex.model.Attack;
 import se.marcus.pokedex.model.ElementType;
 import se.marcus.pokedex.model.Pokemon;
@@ -20,24 +21,26 @@ public class Menu {
                     "2. Lägg till ny Pokemon%n" +
                     "3. Redigera Pokemon%n" +
                     "4. Ta bort Pokemon%n" +
+                    "5. Sök Pokémon%n" +
                     "%n" +
-                    "5. Spara till fil%n" +
-                    "6. Ladda från fil%n" +
+                    "6. Spara till fil%n" +
+                    "7. Ladda från fil%n" +
                     "%n" +
-                    "7. Återställ till seedad data%n" +
-                    "8. Avsluta%n%n");
+                    "8. Återställ till seedad data%n" +
+                    "9. Avsluta%n%n");
 
-            int choice = ConsoleInput.readIntInRange(scanner, "Val: ", 1, 8);
+            int choice = ConsoleInput.readIntInRange(scanner, "Val: ", 1, 9);
 
            switch (choice) {
                case 1 -> pokemonCollection.list();
                case 2 -> addPokemon(scanner, pokemonCollection);
                case 3 -> editPokemon(scanner, pokemonCollection);
                case 4 -> deletePokemon(scanner, pokemonCollection);
-               case 5 -> pokemonCollection.save();
-               case 6 -> pokemonCollection.load();
-               case 7 -> pokemonCollection.seed();
-               case 8 -> {
+               case 5 -> searchPokemon(scanner, pokemonCollection);
+               case 6 -> pokemonCollection.save();
+               case 7 -> pokemonCollection.load();
+               case 8 -> pokemonCollection.seed();
+               case 9 -> {
                    pokemonCollection.save();
                    System.out.println("Avslutar...");
                    running = false;
@@ -120,6 +123,23 @@ public class Menu {
         try {
             pokemon.addAttack(new Attack(name, baseDmg, accuracy, type));
         } catch (InvalidPokemonException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void searchPokemon(Scanner scanner, PokemonCollection collection) {
+        System.out.printf("%n=== Sök Pokémon ===%n");
+        String name = ConsoleInput.readString(scanner, "Namn att söka efter: ");
+        try {
+            Pokemon pokemon = collection.findByName(name);
+            System.out.printf("%nNamn: %s%n", pokemon.getName());
+            System.out.printf("Typ: %s%n", pokemon.getType().toSwedish());
+            System.out.printf("Max HP: %d%n", pokemon.getMaxHp());
+            System.out.printf("Nuvarande HP: %d%n", pokemon.getCurrentHp());
+            for (Attack attack : pokemon.getAttacks()) {
+                System.out.printf("   - %s%n", attack);
+            }
+        } catch (PokemonNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
