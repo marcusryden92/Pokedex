@@ -18,11 +18,10 @@ public class Pokemon {
     }
 
     public Pokemon(String name, ElementType type, int maxHp) {
-        this.name = name;
-        this.type = type;
-        this.maxHp = maxHp;
-        this.currentHp = maxHp;
         this.attacks = new ArrayList<>();
+        setName(name);
+        setType(type);
+        setMaxHp(maxHp);
     }
 
     public String getName() {
@@ -30,6 +29,9 @@ public class Pokemon {
     }
 
     public void setName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new InvalidPokemonException("Namnet får inte vara tomt.");
+        }
         this.name = name;
     }
 
@@ -38,6 +40,9 @@ public class Pokemon {
     }
 
     public void setType(ElementType type) {
+        if (type == null) {
+            throw new InvalidPokemonException("Typen får inte vara tom.");
+        }
         this.type = type;
     }
 
@@ -46,6 +51,9 @@ public class Pokemon {
     }
 
     public void setMaxHp(int maxHp) {
+        if (maxHp <= 0) {
+            throw new InvalidPokemonException("Max HP måste vara större än 0.");
+        }
         this.maxHp = maxHp;
         this.currentHp = maxHp;
     }
@@ -55,6 +63,9 @@ public class Pokemon {
     }
 
     public void setCurrentHp(int currentHp) {
+        if (currentHp < 0 || currentHp > maxHp) {
+            throw new InvalidPokemonException("Nuvarande HP måste vara mellan 0 och max HP.");
+        }
         this.currentHp = currentHp;
     }
 
