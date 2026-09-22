@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class ConsoleInput {
 
-    public static int readInt(Scanner scanner, String prompt, int min, int max) {
+    public static int readIntInRange(Scanner scanner, String prompt, int min, int max) {
         while (true) {
             System.out.print(prompt);
             String input = scanner.nextLine().trim();
