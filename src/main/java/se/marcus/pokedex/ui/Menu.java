@@ -27,7 +27,7 @@ public class Menu {
                     "7. Återställ till seedad data%n" +
                     "8. Avsluta%n%n");
 
-            int choice = ConsoleInput.readIntInRange(scanner, "", 1,8);
+            int choice = ConsoleInput.readIntInRange(scanner, "Val: ", 1, 8);
 
            switch (choice) {
                case 1 -> pokemonCollection.list();
@@ -52,11 +52,13 @@ public class Menu {
             System.out.println("Inga Pokémon finns.");
             return -1;
         }
+        System.out.printf("%n=== Välj Pokémon ===%n");
         collection.shortList();
         return ConsoleInput.readIntInRange(scanner, "Välj nummer: ", 1, collection.size()) - 1;
     }
 
     public static void addPokemon(Scanner scanner, PokemonCollection collection) {
+        System.out.printf("%n=== Ny Pokémon ===%n");
         String name = ConsoleInput.readString(scanner, "Pokemonens namn: ");
         ElementType type = ConsoleInput.readElementType(scanner, "Typ:");
         int maxHp = ConsoleInput.readIntInRange(scanner, "Max HP: ", 1, 999);
@@ -79,9 +81,14 @@ public class Menu {
 
         boolean editing = true;
         while (editing) {
+            System.out.printf("%n=== Redigera Pokémon ===%n");
             System.out.printf(
-                    "1. Namn (%s)%n2. Typ (%s)%n3. Max HP (%d)%n" +
-                            "4. Lägg till attack%n5. Ta bort attack%n6. Klar%n",
+                    "1. Namn (%s)%n" +
+                    "2. Typ (%s)%n" +
+                    "3. Max HP (%d)%n" +
+                    "4. Lägg till attack%n" +
+                    "5. Ta bort attack%n" +
+                    "6. Klar%n%n",
                     pokemon.getName(), pokemon.getType().toSwedish(), pokemon.getMaxHp());
 
             int choice = ConsoleInput.readIntInRange(scanner, "Val: ", 1, 6);
@@ -104,6 +111,7 @@ public class Menu {
     }
 
     public static void addAttack(Scanner scanner, Pokemon pokemon) {
+        System.out.printf("%n=== Ny attack ===%n");
         String name = ConsoleInput.readString(scanner, "Attackens namn: ");
         int baseDmg = ConsoleInput.readIntInRange(scanner, "Baseskada: ", 0, 999);
         int accuracy = ConsoleInput.readIntInRange(scanner, "Träffsäkerhet (0-100): ", 0, 100);
