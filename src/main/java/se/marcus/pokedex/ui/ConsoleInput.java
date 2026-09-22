@@ -3,12 +3,18 @@ import java.util.Scanner;
 
 public class ConsoleInput {
 
-    public static int readInt(Scanner scanner, String prompt) {
+    public static int readInt(Scanner scanner, String prompt, int min, int max) {
         while (true) {
             System.out.print(prompt);
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().trim();
+
             try {
-                return Integer.parseInt(input);
+                int value = Integer.parseInt(input);
+                if (value < min || value > max) {
+                    System.out.printf("Ange ett tal mellan %d och %d.%n", min, max);
+                    continue;
+                }
+                return value;
             } catch (NumberFormatException e) {
                 System.out.println("Ogiltigt tal. Försök igen.");
             }
