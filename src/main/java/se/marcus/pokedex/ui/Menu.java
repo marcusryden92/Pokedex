@@ -81,8 +81,11 @@ public class Menu {
         }
     }
 
-    public static void deletePokemon() {
-
+    public static void deletePokemon(Scanner scanner, PokemonCollection collection) {
+        int index = pickPokemonIndex(scanner, collection);
+        if (index == -1) return;
+        collection.remove(index);
+        System.out.println("Borttagen.");
     }
 
 }
