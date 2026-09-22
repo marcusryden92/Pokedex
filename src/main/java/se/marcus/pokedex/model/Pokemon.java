@@ -13,6 +13,10 @@ public class Pokemon {
     private int currentHp;
     private List<Attack> attacks;
 
+    public Pokemon() {
+        this.attacks = new ArrayList<>();
+    }
+
     public Pokemon(String name, ElementType type, int maxHp) {
         this.name = name;
         this.type = type;
@@ -50,8 +54,16 @@ public class Pokemon {
         return currentHp;
     }
 
+    public void setCurrentHp(int currentHp) {
+        this.currentHp = currentHp;
+    }
+
     public List<Attack> getAttacks() {
         return List.copyOf(attacks);
+    }
+
+    public void setAttacks(List<Attack> attacks) {
+        this.attacks = new ArrayList<>(attacks);
     }
 
     public void addAttack(Attack attack) {

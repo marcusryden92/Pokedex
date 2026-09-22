@@ -33,11 +33,11 @@ public class ConsoleInput {
             int maxLength = 80;
 
             if (input.isEmpty()) {
-                System.out.print("Inmatningen får inte vara tom. Försök igen.");
+                System.out.println("Inmatningen får inte vara tom. Försök igen.");
                 continue;
             }
             if (!input.matches("[\\p{L}\\p{M} ]+")) {
-                System.out.print("Endast bokstäver och mellanslag är tillåtna.");
+                System.out.println("Endast bokstäver och mellanslag är tillåtna.");
                 continue;
             }
             if (input.length() > 80) {
@@ -52,7 +52,7 @@ public class ConsoleInput {
         ElementType[] values = ElementType.values();
         System.out.println(prompt);
         for (int i = 0; i < values.length; i++) {
-            System.out.printf("%d. %s%n", i + 1, values[i]);
+            System.out.printf("%d. %s%n", i + 1, values[i].toSwedish());
         }
         int choice = readIntInRange(scanner, "Val: ", 1, values.length);
         return values[choice - 1];

@@ -14,13 +14,16 @@ public class Menu {
         boolean running = true;
 
         while (running) {
-            System.out.println("=== Meny ===");
-            System.out.printf(  "1. Visa alla Pokémons%n" +
+            System.out.printf("%n=== Meny ===%n");
+            System.out.printf(
+                    "1. Visa alla Pokémons%n" +
                     "2. Lägg till ny Pokemon%n" +
                     "3. Redigera Pokemon%n" +
-                    "4. Ta bort Pokemon%n%n%n" +
+                    "4. Ta bort Pokemon%n" +
+                    "%n" +
                     "5. Spara till fil%n" +
-                    "6. Ladda från fil%n%n" +
+                    "6. Ladda från fil%n" +
+                    "%n" +
                     "7. Återställ till seedad data%n" +
                     "8. Avsluta%n%n");
 
@@ -46,7 +49,7 @@ public class Menu {
 
     private static int pickPokemonIndex(Scanner scanner, PokemonCollection collection) {
         if (collection.size() == 0) {
-            System.out.print("Inga Pokémon finns.");
+            System.out.println("Inga Pokémon finns.");
             return -1;
         }
         collection.shortList();
@@ -79,7 +82,7 @@ public class Menu {
             System.out.printf(
                     "1. Namn (%s)%n2. Typ (%s)%n3. Max HP (%d)%n" +
                             "4. Lägg till attack%n5. Ta bort attack%n6. Klar%n",
-                    pokemon.getName(), pokemon.getType(), pokemon.getMaxHp());
+                    pokemon.getName(), pokemon.getType().toSwedish(), pokemon.getMaxHp());
 
             int choice = ConsoleInput.readIntInRange(scanner, "Val: ", 1, 6);
             switch (choice) {
