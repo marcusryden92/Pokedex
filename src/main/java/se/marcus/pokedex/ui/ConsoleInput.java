@@ -1,4 +1,6 @@
 package se.marcus.pokedex.ui;
+import se.marcus.pokedex.model.ElementType;
+
 import java.util.Scanner;
 
 public class ConsoleInput {
@@ -44,5 +46,15 @@ public class ConsoleInput {
             }
             return input;
         }
+    }
+
+    public static ElementType readElementType(Scanner scanner, String prompt) {
+        ElementType[] values = ElementType.values();
+        System.out.println(prompt);
+        for (int i = 0; i < values.length; i++) {
+            System.out.printf("%d. %s%n", i + 1, values[i]);
+        }
+        int choice = readIntInRange(scanner, "Val: ", 1, values.length);
+        return values[choice - 1];
     }
 }

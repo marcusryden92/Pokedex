@@ -1,9 +1,11 @@
 package se.marcus.pokedex.ui;
 
+import se.marcus.pokedex.exception.InvalidPokemonException;
+import se.marcus.pokedex.model.Attack;
+import se.marcus.pokedex.model.ElementType;
 import se.marcus.pokedex.model.Pokemon;
 import se.marcus.pokedex.model.PokemonCollection;
 
-import java.io.Console;
 import java.util.Scanner;
 
 public class Menu {
@@ -44,8 +46,17 @@ public class Menu {
 
     }
 
-    public static void addAttack() {
+    public static void addAttack(Scanner scanner, Pokemon pokemon) {
+        String name = ConsoleInput.readString(scanner, "Attackens namn: ");
+        int baseDmg = ConsoleInput.readIntInRange(scanner, "Baseskada: ", 0, 999);
+        int accuracy = ConsoleInput.readIntInRange(scanner, "Träffsäkerhet (0-100): ", 0, 100);
+        ElementType type = ConsoleInput.readElementType(scanner, "Attackens typ:");
 
+        try {
+            pokemon.addAttack(new Attack(name, baseDmg, accuracy, type));
+        } catch (InvalidPokemonException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void deletePokemon() {
