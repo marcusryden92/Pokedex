@@ -13,7 +13,7 @@ public class PokemonCollection {
             System.out.printf("Typ: %s%n", pokemon.getType());
             System.out.printf("Max HP: %d%n", pokemon.getMaxHp());
             System.out.printf("Nuvarande HP: %d%n", pokemon.getCurrentHp());
-            System.out.printf("Attacker: %d%n%n", pokemon.getAttacks().size());
+            System.out.printf("Attacker: %n st", pokemon.getAttacks().size());
             System.out.println("========");
         }
     }

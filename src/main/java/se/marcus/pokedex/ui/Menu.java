@@ -35,4 +35,21 @@ public class Menu {
             }
         }
     }
+
+    public static void addPokemon() {
+
+    }
+
+    public static void editPokemon() {
+
+    }
+
+    public static void addAttack() {
+
+    }
+
+    public static void deletePokemon() {
+
+    }
+
 }

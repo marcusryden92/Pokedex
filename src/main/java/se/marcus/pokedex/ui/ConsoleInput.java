@@ -21,4 +21,28 @@ public class ConsoleInput {
         }
 
     }
+
+    public static String readString(Scanner scanner, String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String input = scanner.nextLine().trim();
+
+            int minLength = 0;
+            int maxLength = 80;
+
+            if (input.isEmpty()) {
+                System.out.println("Inmatningen får inte vara tom. Försök igen.");
+                continue;
+            }
+            if (!input.matches("[\\p{L}\\p{M} ]+")) {
+                System.out.println("Endast bokstäver och mellanslag är tillåtna.");
+                continue;
+            }
+            if (input.length() > 80) {
+                System.out.printf("Ange mellan %d och %d tecken.%n", minLength, maxLength);
+                continue;
+            }
+            return input;
+        }
+    }
 }
