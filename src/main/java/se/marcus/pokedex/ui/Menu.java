@@ -24,16 +24,16 @@ public class Menu {
 
             int choice = ConsoleInput.readIntInRange(scanner, "", 1,8);
 
-           /*switch (choice) {
-                case 1 -> collection.list();
-                case 2 -> collection.add();
+           switch (choice) {
+                case 1 -> pokemonCollection.list();
+                /*case 2 -> pokemonCollection.add();
                 case 3 -> ;
                 case 4 -> ;
                 case 5 -> ;
                 case 6 -> ;
-                case 7 -> ;
+                case 7 -> ;*/
                 default -> System.out.println("Avslutar...");
-            }*/
+            }
         }
     }
 
