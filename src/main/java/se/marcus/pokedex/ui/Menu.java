@@ -46,8 +46,7 @@ public class Menu {
                case 7 -> pokemonCollection.load();
                case 8 -> pokemonCollection.seed();
                case 9 -> startBattle(scanner, pokemonCollection);
-               case 10 -> pokemonCollection.seed();
-               case 11 -> {
+               case 10 -> {
                    pokemonCollection.save();
                    System.out.println("Avslutar...");
                    running = false;
