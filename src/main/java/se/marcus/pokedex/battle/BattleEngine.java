@@ -51,6 +51,30 @@ public class BattleEngine {
             String playerResult = playerAttack.execute(player, cpu);
             log.add(playerResult);
             System.out.println(playerResult);
+
+            // CPU picks an attack via its strategy
+            Attack cpuAttack = strategy.chooseAttack(cpu, player, cpu.getAttacks());
+
+            // Execute CPU's attack
+            String cpuResult = cpuAttack.execute(cpu, player);
+            log.add(cpuResult);
+            System.out.println(cpuResult);
         }
+
+        // Announce winner
+        String winner;
+        if (player.isFainted()) {
+            winner = cpu.getName();
+        } else {
+            winner = player.getName();
+        }
+
+        String endMessage = winner + " vann striden!";
+        log.add(endMessage);
+        System.out.println("\n" + endMessage);
+
+        // Reset HP for both players
+        player.resetHp();
+        cpu.resetHp();
     }
 }
