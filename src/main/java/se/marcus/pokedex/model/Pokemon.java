@@ -98,7 +98,7 @@ public class Pokemon {
 
     public void heal(int amount) {
         if (amount < 0) throw new IllegalArgumentException();
-        currentHp = Math.min(maxHp, currentHp - amount);
+        currentHp = Math.min(maxHp, currentHp + amount);
     }
 
     public boolean isFainted() {
