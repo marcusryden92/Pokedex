@@ -1,13 +1,17 @@
 package se.marcus.pokedex.model;
 
 import se.marcus.pokedex.exception.InvalidPokemonException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-public class Attack {
+@JsonDeserialize(as = DamageAttack.class)
+public abstract class Attack {
 
     private String name;
     private int baseDmg;
     private int accuracy;
     private ElementType type;
+
+    protected Attack(){}
 
     public Attack(String name, int baseDmg, int accuracy, ElementType type) {
         setName(name);
@@ -15,6 +19,8 @@ public class Attack {
         setAccuracy(accuracy);
         setType(type);
     }
+
+    public abstract String execute(Pokemon attacker, Pokemon defender);
 
     public String getName()      { return name; }
     public int getBaseDmg()      { return baseDmg; }
