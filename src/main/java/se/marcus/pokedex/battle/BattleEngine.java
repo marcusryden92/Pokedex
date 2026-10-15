@@ -46,16 +46,18 @@ public class BattleEngine {
             System.out.println("CPU: " + cpu);
 
             // List available attacks
+            System.out.println("\nVälj attack:");
             List<Attack> attacks = player.getAttacks();
             for (int i = 0; i < attacks.size(); i++) {
-                System.out.printf("%d. %s%n", i + 1, attacks.get(i));
+                System.out.printf("  %d. %s%n", i + 1, attacks.get(i));
             }
 
             // Player picks an attack
-            int choice = ConsoleInput.readIntInRange(scanner, "Välj attack: ", 1, attacks.size());
+            int choice = ConsoleInput.readIntInRange(scanner, "Val: ", 1, attacks.size());
             Attack playerAttack = attacks.get(choice - 1);
 
-            // Execute player's attack - returns description string
+            // Execute player's attack
+            System.out.println();
             String playerResult = playerAttack.execute(player, cpu);
             log.add(playerResult);
             attacksUsed.add(playerAttack.getName());
@@ -65,6 +67,7 @@ public class BattleEngine {
 
             // CPU picks an attack via its strategy
             Attack cpuAttack = strategy.chooseAttack(cpu, player, cpu.getAttacks());
+            System.out.println(cpu.getName() + " valde " + cpuAttack.getName() + "!");
 
             // Execute CPU's attack
             String cpuResult = cpuAttack.execute(cpu, player);

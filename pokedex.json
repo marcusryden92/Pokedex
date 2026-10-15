@@ -13,7 +13,8 @@
     "baseDmg" : 40,
     "accuracy" : 100,
     "type" : "FIRE"
-  } ]
+  } ],
+  "fainted" : false
 }, {
   "name" : "Squirtle",
   "type" : "WATER",
@@ -29,7 +30,8 @@
     "baseDmg" : 40,
     "accuracy" : 100,
     "type" : "WATER"
-  } ]
+  } ],
+  "fainted" : false
 }, {
   "name" : "Bulbasaur",
   "type" : "GRASS",
@@ -45,7 +47,8 @@
     "baseDmg" : 45,
     "accuracy" : 100,
     "type" : "GRASS"
-  } ]
+  } ],
+  "fainted" : false
 }, {
   "name" : "Pikachu",
   "type" : "ELECTRIC",
@@ -61,7 +64,8 @@
     "baseDmg" : 40,
     "accuracy" : 100,
     "type" : "ELECTRIC"
-  } ]
+  } ],
+  "fainted" : false
 }, {
   "name" : "Charizard",
   "type" : "FIRE",
@@ -77,7 +81,8 @@
     "baseDmg" : 90,
     "accuracy" : 100,
     "type" : "FIRE"
-  } ]
+  } ],
+  "fainted" : false
 }, {
   "name" : "Blastoise",
   "type" : "WATER",
@@ -93,5 +98,6 @@
     "baseDmg" : 60,
     "accuracy" : 100,
     "type" : "WATER"
-  } ]
+  } ],
+  "fainted" : false
 } ]
