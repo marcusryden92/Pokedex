@@ -39,7 +39,7 @@ public class BattleEngine {
         cpu.resetHp();
         log.add("=== " + player.getName() + " vs " + cpu.getName() + " ===");
 
-        while (!player.isFainted() && cpu.isFainted()) {
+        while (!player.isFainted() && !cpu.isFainted()) {
             // Show HP for both players
             System.out.println();
             System.out.println("Din: " + player);
@@ -60,6 +60,8 @@ public class BattleEngine {
             log.add(playerResult);
             attacksUsed.add(playerAttack.getName());
             System.out.println(playerResult);
+
+            if (cpu.isFainted()) break;
 
             // CPU picks an attack via its strategy
             Attack cpuAttack = strategy.chooseAttack(cpu, player, cpu.getAttacks());

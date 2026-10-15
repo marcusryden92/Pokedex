@@ -167,7 +167,8 @@ public class Menu {
 
     private static void startBattle(Scanner scanner, PokemonCollection collection, StatisticsService stats) {
         if (collection.size() < 2) {
-            System.out.print("Du behöver minst 2 Pokémon for att starta en strid.");
+            System.out.println("Du behöver minst 2 Pokémon för att starta en strid.");
+            return;
         }
 
         // Player picks Pokémon
