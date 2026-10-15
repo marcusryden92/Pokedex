@@ -32,7 +32,25 @@ public class BattleEngine {
         log.add("=== " + player.getName() + " vs " + cpu.getName() + " ===");
 
         while (!player.isFainted() && cpu.isFainted()) {
+            // Show HP for both players
+            System.out.println();
+            System.out.println("Din: " + player);
+            System.out.println("CPU: " + cpu);
 
+            // List available attacks
+            List<Attack> attacks = player.getAttacks();
+            for (int i = 0; i < attacks.size(); i++) {
+                System.out.printf("%d. %s%n", i + 1, attacks.get(i));
+            }
+
+            // Player picks an attack
+            int choice = ConsoleInput.readIntInRange(scanner, "Välj attack: ", 1, attacks.size());
+            Attack playerAttack = attacks.get(choice - 1);
+
+            // Execute player's attack - returns description string
+            String playerResult = playerAttack.execute(player, cpu);
+            log.add(playerResult);
+            System.out.println(playerResult);
         }
     }
 }
