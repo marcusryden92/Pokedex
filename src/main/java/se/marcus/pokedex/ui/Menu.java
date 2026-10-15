@@ -11,12 +11,16 @@ import se.marcus.pokedex.battle.BattleEngine;
 import se.marcus.pokedex.battle.CpuStrategy;
 import se.marcus.pokedex.battle.RandomStrategy;
 import se.marcus.pokedex.battle.AggressiveStrategy;
+import se.marcus.pokedex.service.StatisticsService;
+
 import java.util.Random;
 import java.util.Scanner;
 
 public class Menu {
     public static void run(PokemonCollection pokemonCollection) {
         Scanner scanner = new Scanner(System.in);
+        StatisticsService stats = new StatisticsService();
+
         boolean running = true;
 
         while (running) {
@@ -28,13 +32,16 @@ public class Menu {
                     "4. Ta bort Pokemon%n" +
                     "5. Sök Pokémon%n" +
                     "%n" +
-                    "6. Spara till fil%n" +
-                    "7. Ladda från fil%n" +
-                    "%n" + "8. Starta strid%n" +
-                    "9. Återställ till seedad data%n" +
-                    "10. Avsluta%n%n");
+                    "6. Starta strid%n" +
+                    "7. Visa statistik%n" +
+                    "%n" +
+                    "8. Spara till fil%n" +
+                    "9. Ladda från fil%n" +
+                    "10. Återställ till seedad data%n" +
+                    "%n" +
+                    "11. Avsluta%n%n");
 
-            int choice = ConsoleInput.readIntInRange(scanner, "Val: ", 1, 10);
+            int choice = ConsoleInput.readIntInRange(scanner, "Val: ", 1, 11);
 
            switch (choice) {
                case 1 -> pokemonCollection.list();
@@ -42,11 +49,12 @@ public class Menu {
                case 3 -> editPokemon(scanner, pokemonCollection);
                case 4 -> deletePokemon(scanner, pokemonCollection);
                case 5 -> searchPokemon(scanner, pokemonCollection);
-               case 6 -> pokemonCollection.save();
-               case 7 -> pokemonCollection.load();
-               case 8 -> pokemonCollection.seed();
-               case 9 -> startBattle(scanner, pokemonCollection);
-               case 10 -> {
+               case 6 -> startBattle(scanner, pokemonCollection, stats);
+               case 7 -> stats.printStats();
+               case 8 -> pokemonCollection.save();
+               case 9 -> pokemonCollection.load();
+               case 10 -> pokemonCollection.seed();
+               case 11 -> {
                    pokemonCollection.save();
                    System.out.println("Avslutar...");
                    running = false;
@@ -157,7 +165,7 @@ public class Menu {
         System.out.println("Borttagen.");
     }
 
-    private static void startBattle(Scanner scanner, PokemonCollection collection) {
+    private static void startBattle(Scanner scanner, PokemonCollection collection, StatisticsService stats) {
         if (collection.size() < 2) {
             System.out.print("Du behöver minst 2 Pokémon for att starta en strid.");
         }
@@ -188,6 +196,7 @@ public class Menu {
         // Run battle
         BattleEngine engine = new BattleEngine(player, cpu, strategy);
         engine.run(scanner);
+        stats.addResult(engine.getResult());
 
         // Print log
         System.out.println("\n=== Stridslogg ===");
