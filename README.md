@@ -1,131 +1,112 @@
-# Pokédex
+# Pokemon Battler
 
-En konsolapplikation i Java där du kan hantera en samling Pokémons - skapa, visa,
-redigera och ta bort (CRUD) - samt spara och ladda datan från fil i JSON-format.
+Bygger vidare på Pokédex-projektet från inlämning 1. Utöver CRUD, sökning och
+JSON-persistens finns nu ett turbaserat stridssystem mot en CPU-motståndare.
 
-Projektet är inlämningsuppgift 1 i kursen _Programmering med Java, grund_.
+Inlämningsuppgift 2, _Programmering med Java, grund_.
 
 ## Krav
 
-- **Java 21** (fungerar även på Java 17/25)
-- **Maven** (beroenden hämtas automatiskt)
+- Java 21
+- Maven
 
-Enda externa beroendet är [Jackson](https://github.com/FasterXML/jackson) för JSON,
-vilket anges i `pom.xml`.
+Beroenden (hämtas via `pom.xml`): Jackson för JSON, JUnit 5 för tester.
 
-## Så här kör du
+## Köra programmet
 
-### I IntelliJ (rekommenderas)
+Öppna i IntelliJ, låt Maven ladda beroenden, kör `Main.java`.
 
-1. Öppna projektmappen i IntelliJ (`File > Open`).
-2. Låt IntelliJ ladda Maven-projektet så att Jackson hämtas hem
-   (_Maven-fönstret > Reload All Maven Projects_ vid behov).
-3. Öppna `src/main/java/se/marcus/pokedex/Main.java` och tryck på den gröna
-   ▶-pilen bredvid `main`.
+Alternativt: `mvn compile` och kör `se.marcus.pokedex.Main`.
 
-### Från terminalen
+Tester: `mvn test`
 
-Projektet är ett vanligt Maven-projekt, så det bygger med:
+## Menyn
 
 ```
-mvn compile
-```
-
-Kör sedan `main`-klassen `se.marcus.pokedex.Main` (t.ex. via IntelliJ, eller med
-`java` och Jackson-jar:erna på classpath).
-
-## Datalagring
-
-- Datan sparas i filen **`pokedex.json`** i arbetskatalogen (projektroten när du
-  kör via IntelliJ).
-- **Första körningen** (ingen sparad fil) fyller Pokédexen automatiskt med 6
-  fördefinierade Pokémons med attacker (_seeding_).
-- Vid start läses `pokedex.json` in om den finns. Saknas den, eller är den trasig,
-  seedas datan om istället för att programmet kraschar.
-- Val **8 (Avsluta)** sparar automatiskt innan programmet stängs.
-
-## Funktioner (menyn)
-
-```
-=== Meny ===
 1. Visa alla Pokémons
 2. Lägg till ny Pokemon
 3. Redigera Pokemon
 4. Ta bort Pokemon
 5. Sök Pokémon
 
-6. Spara till fil
-7. Ladda från fil
+6. Starta strid
+7. Visa statistik
 
-8. Återställ till seedad data
-9. Avsluta
+8. Spara till fil
+9. Ladda från fil
+10. Återställ till seedad data
+
+11. Avsluta
 ```
 
-1. **Visa alla** – listar alla Pokémons med typ, HP och attacker.
-2. **Lägg till** – guidad inmatning med validering; varje Pokémon får 1–4 attacker.
-3. **Redigera** – ändra namn, typ, max-HP samt lägg till/ta bort attacker.
-4. **Ta bort** – välj en Pokémon ur listan och radera den.
-5. **Sök Pokémon** – sök på namn (skiftlägesokänsligt) och visa dess detaljer.
-6. **Spara till fil** – skriver samlingen till `pokedex.json`.
-7. **Ladda från fil** – läser in samlingen från `pokedex.json`.
-8. **Återställ till seedad data** – ersätter samlingen med de 6 fördefinierade.
-9. **Avsluta** – sparar automatiskt och avslutar.
+1–5 och 8–10 är kvar från Pokédexen. Nytt är **Starta strid** (välj Pokémon,
+CPU väljer slumpmässigt, välj svårighetsgrad) och **Visa statistik** (vinster per
+Pokémon, mest använda attack, antal strider).
 
-## Exempel på användning
+## Stridssystemet
 
-```
-=== Meny ===
-1. Visa alla Pokémons
-...
-Val: 2
+Turbaserat -spelaren och CPU:n turas om att välja attack.
 
-=== Ny Pokémon ===
-Pokemonens namn: Eevee
-Typ:
-1. Eld
-2. Vatten
-3. Gräs
-4. El
-5. Normal
-Val: 5
-Max HP: 55
+- **Träffsäkerhet:** varje attack har accuracy 0–100 som avgör om den träffar.
+- **Typeffektivitet:** Fire > Grass, Water > Fire, Grass > Water, Electric > Water
+  ger 2x skada. Omvänt ger 0.5x. Allt annat ger 1x.
+- **Kritiska träffar:** 1/16 chans, dubbel skada, syns i loggen.
+- **Stridslogg:** allt som händer loggas och visas efter striden.
+- **Svårighetsgrad:** Lätt (CPU väljer slumpmässigt) eller Svår (CPU väljer attacken
+  med högst basskada).
 
-=== Ny attack ===
-Attackens namn: Tackle
-Baseskada: 40
-Träffsäkerhet (0-100): 100
-Attackens typ:
-...
-Eevee tillagd.
-```
+## Filer
 
-All inmatning valideras: bokstäver där siffror förväntas, tomma rader, alldeles
-för långa namn, värden utanför tillåtet intervall osv. hanteras med ett begripligt
-felmeddelande – programmet kraschar inte.
+- `pokedex.json` -Pokémon-samlingen. Seedas automatiskt vid första körning.
+- `battle_stats.json` -stridsstatistik. Skapas efter första striden.
+
+Saknad eller trasig fil kraschar inte programmet -det startar med tom data istället.
+
+## Krasch-test
+
+Programmet kraschar inte. All input valideras i `ConsoleInput`, konstruktorer
+kastar exception vid ogiltiga värden, saknad/korrupt JSON fångas med try/catch.
+
+## OOP-arkitektur
+
+### Abstrakt Attack
+
+`Attack` är abstrakt med en abstrakt `execute`-metod. `DamageAttack` ärver den
+och implementerar skadeberäkningen (accuracy-check, typeffektivitet, kritisk träff,
+`defender.takeDamage`).
+
+Poängen är att en ny attacktyp -t.ex. en StatusAttack som sänker accuracy -kan
+läggas till som en ny subklass utan att röra BattleEngine eller befintlig kod.
+Execute anropas polymorft, och engine vet inte vilken subklass som kör.
+
+### Strategy pattern för CPU
+
+`CpuStrategy` är ett interface. `RandomStrategy` slumpar, `AggressiveStrategy`
+väljer högst skada. BattleEngine tar emot en CpuStrategy i konstruktorn och
+anropar `strategy.chooseAttack(...)` -den vet inte och bryr sig inte om vilken
+implementation som ligger bakom. Att byta svårighetsgrad är att skicka in ett
+annat objekt, ingen annan kod ändras.
+
+### Paketstruktur
+
+- `model/` -domänklasser (Pokemon, Attack, DamageAttack, TypeChart, BattleResult osv)
+- `battle/` -stridslogik (BattleEngine, BattleLog, CpuStrategy, strategier)
+- `service/` -statistik (StatisticsService)
+- `ui/` -meny och inmatning
+- `persistence/` -JSON via Jackson
+- `exception/` -InvalidPokemonException, PokemonNotFoundException
+
+Menyn läser input och delegerar -den innehåller ingen affärslogik.
 
 ## Projektstruktur
 
-```
-src/main/java/se/marcus/pokedex/
-├── Main.java                 – startpunkt (ladda eller seeda, starta menyn)
-├── model/
-│   ├── Pokemon.java          – en Pokémon med 1–4 attacker
-│   ├── Attack.java           – en attack
-│   ├── ElementType.java      – typ-enum (Fire, Water, Grass, Electric, Normal)
-│   └── PokemonCollection.java – samlingen samt seed/save/load
-├── ui/
-│   ├── Menu.java             – menyn och de olika flödena
-│   └── ConsoleInput.java     – inläsning och validering av användarinput
-├── persistence/
-│   └── JsonStorage.java      – spara/ladda JSON med Jackson
-└── exception/
-    ├── InvalidPokemonException.java
-    └── PokemonNotFoundException.java
-```
+Allting ligger under `src/main/java/se/marcus/pokedex/`. Startpunkt är `Main.java`.
 
-## VG-krav
+- **model/** -Pokemon, Attack (abstrakt), DamageAttack, ElementType, TypeChart, SeedData, PokemonCollection, BattleResult
+- **battle/** -BattleEngine, BattleLog, CpuStrategy (interface), RandomStrategy, AggressiveStrategy
+- **service/** -StatisticsService
+- **ui/** -Menu, ConsoleInput
+- **persistence/** -JsonStorage
+- **exception/** -InvalidPokemonException, PokemonNotFoundException
 
-- **JSON som persistensformat** via Jackson (se `persistence/JsonStorage.java`).
-- **Egna exceptions för domänfel**: `InvalidPokemonException` (kastas vid
-  ogiltigt attack-antal, t.ex. fler än 4 eller färre än 1) och
-  `PokemonNotFoundException` (kastas vid sökning på ett namn som inte finns).
+Tester ligger i `src/test/java/se/marcus/pokedex/model/` -PokemonTest och TypeChartTest.
