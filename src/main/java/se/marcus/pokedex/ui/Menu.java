@@ -6,6 +6,7 @@ import se.marcus.pokedex.model.Attack;
 import se.marcus.pokedex.model.ElementType;
 import se.marcus.pokedex.model.Pokemon;
 import se.marcus.pokedex.model.PokemonCollection;
+import se.marcus.pokedex.model.DamageAttack;
 
 import java.util.Scanner;
 
@@ -121,7 +122,7 @@ public class Menu {
         ElementType type = ConsoleInput.readElementType(scanner, "Attackens typ:");
 
         try {
-            pokemon.addAttack(new Attack(name, baseDmg, accuracy, type));
+            pokemon.addAttack(new DamageAttack(name, baseDmg, accuracy, type));
         } catch (InvalidPokemonException e) {
             System.out.println(e.getMessage());
         }
