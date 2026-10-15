@@ -9,8 +9,6 @@ public class Attack {
     private int accuracy;
     private ElementType type;
 
-    public Attack() {}
-
     public Attack(String name, int baseDmg, int accuracy, ElementType type) {
         setName(name);
         setBaseDmg(baseDmg);
