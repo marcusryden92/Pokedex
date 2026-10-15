@@ -14,36 +14,7 @@ public class PokemonCollection {
 
     public void seed() {
         pokemonCollection.clear();
-
-        Pokemon charmander = new Pokemon("Charmander", ElementType.FIRE, 39);
-        charmander.addAttack(new Attack("Scratch", 40, 100, ElementType.NORMAL));
-        charmander.addAttack(new Attack("Ember", 40, 100, ElementType.FIRE));
-        add(charmander);
-
-        Pokemon squirtle = new Pokemon("Squirtle", ElementType.WATER, 44);
-        squirtle.addAttack(new Attack("Tackle", 40, 100, ElementType.NORMAL));
-        squirtle.addAttack(new Attack("Water Gun", 40, 100, ElementType.WATER));
-        add(squirtle);
-
-        Pokemon bulbasaur = new Pokemon("Bulbasaur", ElementType.GRASS, 45);
-        bulbasaur.addAttack(new Attack("Tackle", 40, 100, ElementType.NORMAL));
-        bulbasaur.addAttack(new Attack("Vine Whip", 45, 100, ElementType.GRASS));
-        add(bulbasaur);
-
-        Pokemon pikachu = new Pokemon("Pikachu", ElementType.ELECTRIC, 35);
-        pikachu.addAttack(new Attack("Quick Attack", 40, 100, ElementType.NORMAL));
-        pikachu.addAttack(new Attack("Thunder Shock", 40, 100, ElementType.ELECTRIC));
-        add(pikachu);
-
-        Pokemon charizard = new Pokemon("Charizard", ElementType.FIRE, 78);
-        charizard.addAttack(new Attack("Slash", 70, 100, ElementType.NORMAL));
-        charizard.addAttack(new Attack("Flamethrower", 90, 100, ElementType.FIRE));
-        add(charizard);
-
-        Pokemon blastoise = new Pokemon("Blastoise", ElementType.WATER, 79);
-        blastoise.addAttack(new Attack("Bite", 60, 100, ElementType.NORMAL));
-        blastoise.addAttack(new Attack("Water Pulse", 60, 100, ElementType.WATER));
-        add(blastoise);
+        pokemonCollection.addAll(SeedData.create());
     }
 
     public void list() {
