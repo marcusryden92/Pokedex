@@ -7,7 +7,11 @@ import se.marcus.pokedex.model.ElementType;
 import se.marcus.pokedex.model.Pokemon;
 import se.marcus.pokedex.model.PokemonCollection;
 import se.marcus.pokedex.model.DamageAttack;
-
+import se.marcus.pokedex.battle.BattleEngine;
+import se.marcus.pokedex.battle.CpuStrategy;
+import se.marcus.pokedex.battle.RandomStrategy;
+import se.marcus.pokedex.battle.AggressiveStrategy;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Menu {
@@ -26,11 +30,11 @@ public class Menu {
                     "%n" +
                     "6. Spara till fil%n" +
                     "7. Ladda från fil%n" +
-                    "%n" +
-                    "8. Återställ till seedad data%n" +
-                    "9. Avsluta%n%n");
+                    "%n" + "8. Starta strid%n" +
+                    "9. Återställ till seedad data%n" +
+                    "10. Avsluta%n%n");
 
-            int choice = ConsoleInput.readIntInRange(scanner, "Val: ", 1, 9);
+            int choice = ConsoleInput.readIntInRange(scanner, "Val: ", 1, 10);
 
            switch (choice) {
                case 1 -> pokemonCollection.list();
@@ -41,7 +45,9 @@ public class Menu {
                case 6 -> pokemonCollection.save();
                case 7 -> pokemonCollection.load();
                case 8 -> pokemonCollection.seed();
-               case 9 -> {
+               case 8 -> startBattle(scanner, pokemonCollection);
+               case 9 -> pokemonCollection.seed();
+               case 10 -> {
                    pokemonCollection.save();
                    System.out.println("Avslutar...");
                    running = false;
@@ -150,6 +156,43 @@ public class Menu {
         if (index == -1) return;
         collection.remove(index);
         System.out.println("Borttagen.");
+    }
+
+    private static void startBattle(Scanner scanner, PokemonCollection collection) {
+        if (collection.size() < 2) {
+            System.out.print("Du behöver minst 2 Pokémon for att starta en strid.");
+        }
+
+        // Player picks Pokémon
+        System.out.println("\nVälj din Pokémon");
+        int playerIndex = pickPokemonIndex(scanner, collection);
+        if (playerIndex == -1) return;
+        Pokemon player = collection.get(playerIndex);
+
+        // CPU picks random
+        Random random = new Random();
+        int cpuIndex;
+        do { cpuIndex = random.nextInt(collection.size());
+        } while (cpuIndex == playerIndex);
+
+        Pokemon cpu = collection.get(cpuIndex);
+        System.out.println("CPU valde " + cpu.getName() + "!");
+
+        // Pick difficulty
+        System.out.println("Svårighetsgrad:");
+        System.out.println("1. Lätt (slumpmässig)");
+        System.out.println("2. Svår (aggressiv)");
+        int diff = ConsoleInput.readIntInRange(scanner, "Val: ", 1, 2);
+
+        CpuStrategy strategy = diff == 1 ? new RandomStrategy() : new AggressiveStrategy();
+
+        // Run battle
+        BattleEngine engine = new BattleEngine(player, cpu, strategy);
+        engine.run(scanner);
+
+        // Print log
+        System.out.println("\n=== Stridslogg ===");
+        engine.getLog().print();
     }
 
 }
