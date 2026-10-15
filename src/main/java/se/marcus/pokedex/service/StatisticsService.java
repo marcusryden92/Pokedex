@@ -62,7 +62,39 @@ public class StatisticsService {
             }
         }
 
+        // Most used attack
+        String mostUsed = "";
+        int highestCount = 0;
+        for (String name : attackCount.keySet()) {
+            if (attackCount.get(name) > highestCount) {
+                mostUsed = name;
+                highestCount = attackCount.get(name);
+            }
+        }
+        System.out.println("\nMest använda attack: " + mostUsed + " (" + highestCount + " gånger)");
+    }
 
+    private void save() {
+        try {
+            mapper.writerWithDefaultPrettyPrinter().writeValue(STATS_FILE.toFile(), results);
+        } catch (IOException e) {
+            System.out.println("Kunde inte spara statistik: " + e.getMessage());
+        }
+    }
+
+    private void load() {
+        if (!Files.exists(STATS_FILE)) {
+            results = new ArrayList<>();
+            return;
+        }
+
+        try {
+            results = mapper.readValue(STATS_FILE.toFile(), new TypeReference<List<BattleResult>>() {
+            });
+        } catch (IOException e) {
+            System.out.println("Kunde inte ladda statistik: " + e.getMessage());
+            results = new ArrayList<>();
+        }
     }
 
 }
