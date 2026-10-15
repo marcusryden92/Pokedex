@@ -1,4 +1,4 @@
-package se.marcus.pokedex.model;
+package se.marcus.pokedex.battle;
 import java.util.ArrayList;
 import java.util.List;
 
