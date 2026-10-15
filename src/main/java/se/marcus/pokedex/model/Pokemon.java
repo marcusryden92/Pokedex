@@ -90,4 +90,27 @@ public class Pokemon {
         }
         attacks.remove(index);
     }
+
+    public void takeDamage(int amount){
+        if (amount < 0) throw new IllegalArgumentException();
+        currentHp = Math.max(0, currentHp - amount);
+    }
+
+    public void heal(int amount) {
+        if (amount < 0) throw new IllegalArgumentException();
+        currentHp = Math.min(maxHp, currentHp - amount);
+    }
+
+    public boolean isFainted() {
+        return currentHp == 0;
+    }
+
+    public void resetHp() {
+        currentHp = maxHp;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(name + " (" + type.toSwedish() + ", " + currentHp + "/" + maxHp + " HP)");
+    }
 }
