@@ -7,8 +7,9 @@ import java.util.List;
 
 public class Pokemon {
 
+    private int id;
     private String name;
-    private ElementType type;
+    private ElementType elementType;
     private int maxHp;
     private int currentHp;
     private List<Attack> attacks;
@@ -24,6 +25,14 @@ public class Pokemon {
         setMaxHp(maxHp);
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -35,15 +44,15 @@ public class Pokemon {
         this.name = name;
     }
 
-    public ElementType getType() {
-        return type;
+    public ElementType getElementType() {
+        return elementType;
     }
 
     public void setType(ElementType type) {
         if (type == null) {
             throw new InvalidPokemonException("Typen får inte vara tom.");
         }
-        this.type = type;
+        this.elementType = elementType;
     }
 
     public int getMaxHp() {
@@ -111,6 +120,6 @@ public class Pokemon {
 
     @Override
     public String toString() {
-        return String.format(name + " (" + type.toSwedish() + ", " + currentHp + "/" + maxHp + " HP)");
+        return String.format(name + " (" + elementType.toSwedish() + ", " + currentHp + "/" + maxHp + " HP)");
     }
 }

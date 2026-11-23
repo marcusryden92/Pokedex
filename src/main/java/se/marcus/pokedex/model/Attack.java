@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as = DamageAttack.class)
 public abstract class Attack {
 
+    private int id;
     private String name;
     private int baseDmg;
     private int accuracy;
