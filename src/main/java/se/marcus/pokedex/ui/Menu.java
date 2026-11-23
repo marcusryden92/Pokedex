@@ -106,7 +106,7 @@ public class Menu {
                     "4. Lägg till attack%n" +
                     "5. Ta bort attack%n" +
                     "6. Klar%n%n",
-                    pokemon.getName(), pokemon.getType().toSwedish(), pokemon.getMaxHp());
+                    pokemon.getName(), pokemon.getElementType().toSwedish(), pokemon.getMaxHp());
 
             int choice = ConsoleInput.readIntInRange(scanner, "Val: ", 1, 6);
             switch (choice) {
@@ -147,7 +147,7 @@ public class Menu {
         try {
             Pokemon pokemon = collection.findByName(name);
             System.out.printf("%nNamn: %s%n", pokemon.getName());
-            System.out.printf("Typ: %s%n", pokemon.getType().toSwedish());
+            System.out.printf("Typ: %s%n", pokemon.getElementType().toSwedish());
             System.out.printf("Max HP: %d%n", pokemon.getMaxHp());
             System.out.printf("Nuvarande HP: %d%n", pokemon.getCurrentHp());
             for (Attack attack : pokemon.getAttacks()) {

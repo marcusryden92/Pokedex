@@ -22,7 +22,7 @@ public class DamageAttack extends Attack{
         }
 
         // Attack multiplier
-        double multiplier = TypeChart.getMultiplier(getType(), defender.getType());
+        double multiplier = TypeChart.getMultiplier(getType(), defender.getElementType());
 
         // Cast damage as int to lose the decimals
         int damage = (int) (getBaseDmg() * multiplier);

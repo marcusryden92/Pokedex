@@ -21,7 +21,7 @@ public class PokemonCollection {
         for (int i = 0; i < pokemonCollection.size(); i++) {
             Pokemon pokemon = pokemonCollection.get(i);
             System.out.printf("%d. Namn: %s%n", i + 1, pokemon.getName());
-            System.out.printf("Typ: %s%n", pokemon.getType().toSwedish());
+            System.out.printf("Typ: %s%n", pokemon.getElementType().toSwedish());
             System.out.printf("Max HP: %d%n", pokemon.getMaxHp());
             System.out.printf("Nuvarande HP: %d%n", pokemon.getCurrentHp());
             System.out.printf("Attacker: %d st%n", pokemon.getAttacks().size());

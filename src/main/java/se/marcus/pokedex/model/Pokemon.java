@@ -52,7 +52,7 @@ public class Pokemon {
         if (type == null) {
             throw new InvalidPokemonException("Typen får inte vara tom.");
         }
-        this.elementType = elementType;
+        this.elementType = type;
     }
 
     public int getMaxHp() {

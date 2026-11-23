@@ -15,14 +15,14 @@ public class PokemonJdbc implements PokemonDao {
     public boolean createPokemon(Pokemon pokemon) {
 
         String sql = """
-                INSERT INTO pokemon (name, element_type, max_hp, current_hp)
-                VALUES (?, ?, ?, ?)
+                INSERT INTO pokemon (name, element_type_id, max_hp, current_hp)
+                VALUES (?, (SELECT id FROM element_type WHERE name = ?), ?, ?)
                 """;
 
         try (Connection conn = DatabaseConfig.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 
             ps.setString(1, pokemon.getName());
-            ps.setInt(2, pokemon.getElementType());
+            ps.setString(2, pokemon.getElementType().name());
             ps.setInt(3, pokemon.getMaxHp());
             ps.setInt(4, pokemon.getCurrentHp());
 
@@ -40,7 +40,7 @@ public class PokemonJdbc implements PokemonDao {
         String sql = """
                 UPDATE pokemon
                 SET name = ?,
-                    element_type = ?::element_type,
+                    element_type_id = (SELECT id FROM element_type WHERE name = ?),
                     max_hp = ?,
                     current_hp = ?
                 WHERE id = ?
