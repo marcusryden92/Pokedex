@@ -11,6 +11,7 @@ public abstract class Attack {
     private int baseDmg;
     private int accuracy;
     private ElementType type;
+    private int pokemonId;
 
     protected Attack(){}
 
@@ -23,6 +24,10 @@ public abstract class Attack {
 
     public abstract String execute(Pokemon attacker, Pokemon defender);
 
+    public int getId()           { return id; }
+    public void setId(int id)    { this.id = id; }
+    public int getPokemonId()    { return pokemonId; }
+    public void setPokemonId(int pokemonId) { this.pokemonId = pokemonId; }
     public String getName()      { return name; }
     public int getBaseDmg()      { return baseDmg; }
     public int getAccuracy()     { return accuracy; }
