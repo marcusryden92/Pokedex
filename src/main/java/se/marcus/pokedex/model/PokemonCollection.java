@@ -2,6 +2,7 @@ package se.marcus.pokedex.model;
 
 import se.marcus.pokedex.exception.PokemonNotFoundException;
 import se.marcus.pokedex.persistence.JsonStorage;
+import se.marcus.pokedex.repository.PokemonJdbc;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -40,12 +41,11 @@ public class PokemonCollection {
     }
 
     public void save() {
-        JsonStorage.save(DATA_FILE, pokemonCollection);
-        System.out.println("Sparat till " + DATA_FILE.toAbsolutePath());
+        PokemonJdbc.savePokemonCollection(pokemonCollection);
     }
 
     public void load() {
-        List<Pokemon> loaded = JsonStorage.load(DATA_FILE);
+        List<Pokemon> loaded = PokemonJdbc.getPokemonCollection();
         pokemonCollection.clear();
         pokemonCollection.addAll(loaded);
     }

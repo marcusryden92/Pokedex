@@ -8,17 +8,17 @@ import java.util.ArrayList;
 
 public interface PokemonDao {
 
-    public boolean createPokemon(Pokemon pokemon);
+    public static boolean createPokemon(Pokemon pokemon);
 
-    public boolean updatePokemon(Pokemon pokemon);
+    public static boolean updatePokemon(Pokemon pokemon);
 
-    public boolean upsertPokemon(Pokemon pokemon);
+    public static boolean upsertPokemon(Pokemon pokemon);
 
-    public boolean deletePokemon(Pokemon pokemon);
+    public static boolean deletePokemon(Pokemon pokemon);
 
-    public boolean savePokemonCollection(ArrayList<Pokemon> pokemonCollection);
+    public static boolean savePokemonCollection(ArrayList<Pokemon> pokemonCollection);
 
-    public ArrayList<Pokemon> getPokemonCollection();
+    public static ArrayList<Pokemon> getPokemonCollection();
 
     public boolean deletePokemonCollection(int collectionId);
 }

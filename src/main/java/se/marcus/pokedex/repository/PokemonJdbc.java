@@ -17,7 +17,7 @@ import java.util.List;
 public class PokemonJdbc implements PokemonDao {
 
     @Override
-    public boolean createPokemon(Pokemon pokemon) {
+    public static boolean createPokemon(Pokemon pokemon) {
 
         String pokemonSql = """
                 INSERT INTO pokemon (name, element_type_id, max_hp, current_hp)
@@ -67,7 +67,7 @@ public class PokemonJdbc implements PokemonDao {
     }
 
     @Override
-    public boolean updatePokemon(Pokemon pokemon) {
+    public static boolean updatePokemon(Pokemon pokemon) {
 
         String sql = """
                 UPDATE pokemon
@@ -94,7 +94,7 @@ public class PokemonJdbc implements PokemonDao {
     }
 
     @Override
-    public boolean upsertPokemon(Pokemon pokemon) {
+    public static boolean upsertPokemon(Pokemon pokemon) {
         if (pokemon.getId() == 0) {
             return createPokemon(pokemon);
         }
@@ -102,7 +102,7 @@ public class PokemonJdbc implements PokemonDao {
     }
 
     @Override
-    public boolean deletePokemon(Pokemon pokemon) {
+    public static boolean deletePokemon(Pokemon pokemon) {
         String sql = """
                 DELETE FROM pokemon WHERE id = ?;
                 """;
@@ -118,7 +118,7 @@ public class PokemonJdbc implements PokemonDao {
     }
 
     @Override
-    public boolean savePokemonCollection(ArrayList<Pokemon> pokemonCollection) {
+    public static boolean savePokemonCollection(ArrayList<Pokemon> pokemonCollection) {
         boolean allSaved = true;
         for (Pokemon pokemon : pokemonCollection) {
             if (!upsertPokemon(pokemon)) {
@@ -129,7 +129,7 @@ public class PokemonJdbc implements PokemonDao {
     }
 
     @Override
-    public ArrayList<Pokemon> getPokemonCollection() {
+    public static ArrayList<Pokemon> getPokemonCollection() {
         String pokemonSql = """
                 SELECT p.id, p.name, et.name AS element_type, p.max_hp, p.current_hp
                 FROM pokemon p
@@ -190,7 +190,7 @@ public class PokemonJdbc implements PokemonDao {
     }
 
     @Override
-    public boolean deletePokemonCollection(int collectionId) {
+    public static boolean deletePokemonCollection(int collectionId) {
         String sql = """
                 DELETE FROM pokemon
                 """;
