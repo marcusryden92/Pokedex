@@ -11,5 +11,14 @@ services:
     volumes:
       - pgdata_pokedex:/var/lib/postgresql/data
 
+  mongodb:
+    image: mongo:8.0
+    container_name: pokedex-mongodb
+    ports:
+      - "127.0.0.1:27018:27017"
+    volumes:
+      - mongodata_pokedex:/data/db
+
 volumes:
   pgdata_pokedex:
+  mongodata_pokedex:
