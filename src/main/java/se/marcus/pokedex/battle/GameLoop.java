@@ -2,6 +2,7 @@ package se.marcus.pokedex.battle;
 
 import se.marcus.pokedex.model.Pokemon;
 import se.marcus.pokedex.model.PokemonCollection;
+import se.marcus.pokedex.repository.BattleLogRepository;
 import se.marcus.pokedex.service.PokemonManager;
 import se.marcus.pokedex.service.StatisticsService;
 import se.marcus.pokedex.ui.ConsoleInput;
@@ -12,7 +13,7 @@ import java.util.Scanner;
 
 public class GameLoop {
 
-    public static void run(PokemonCollection collection, PokemonManager manager, Scanner scanner, ConsolePrinter printer, StatisticsService stats){
+    public static void run(PokemonCollection collection, PokemonManager manager, Scanner scanner, ConsolePrinter printer, StatisticsService stats, BattleLogRepository battleLogRepo){
 
             if (collection.size() < 2) {
                 printer.printBattleNotPossible();
@@ -52,8 +53,8 @@ public class GameLoop {
             engine.run(scanner);
 
             stats.addResult(engine.getResult());
+            battleLogRepo.save(engine.toBattleLogDocument());
 
-            // Print log
             printer.printBattleLog();
             engine.getLog().print();
     }
