@@ -1,13 +1,16 @@
 package se.marcus.pokedex.battle;
 
+import org.bson.Document;
 import se.marcus.pokedex.model.Attack;
 import se.marcus.pokedex.model.Pokemon;
 import se.marcus.pokedex.ui.ConsoleInput;
 import se.marcus.pokedex.model.BattleResult;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 
 
 public class BattleEngine {
@@ -20,8 +23,6 @@ public class BattleEngine {
 
     private String winner;
     private String loser;
-
-
 
     public BattleEngine(Pokemon player, Pokemon cpu, CpuStrategy strategy) {
         this.player = player;
@@ -61,13 +62,13 @@ public class BattleEngine {
             String playerResult = playerAttack.execute(player, cpu);
             log.add(playerResult);
             attacksUsed.add(playerAttack.getName());
-            System.out.println(playerResult);
+            System.out.print(playerResult);
 
             if (cpu.isFainted()) break;
 
             // CPU picks an attack via its strategy
             Attack cpuAttack = strategy.chooseAttack(cpu, player, cpu.getAttacks());
-            System.out.println(cpu.getName() + " valde " + cpuAttack.getName() + "!");
+            System.out.print(cpu.getName() + " valde " + cpuAttack.getName() + "!");
 
             // Execute CPU's attack
             String cpuResult = cpuAttack.execute(cpu, player);
@@ -87,7 +88,7 @@ public class BattleEngine {
 
         String endMessage = winner + " vann striden!";
         log.add(endMessage);
-        System.out.println("\n" + endMessage);
+        System.out.print("\n" + endMessage);
 
         // Reset HP for both players
         player.resetHp();
@@ -96,5 +97,21 @@ public class BattleEngine {
 
     public BattleResult getResult() {
         return new BattleResult(winner, loser, LocalDateTime.now().toString(), attacksUsed);
+    }
+
+    public Document toBattleLogDocument() {
+        return new Document("matchId", UUID.randomUUID().toString())
+                .append("playedAt", new Date())
+                .append("participants", List.of(
+                        new Document("pokemonId", player.getId())
+                                .append("name", player.getName())
+                                .append("type", player.getElementType().name()),
+                        new Document("pokemonId", cpu.getId())
+                                .append("name", cpu.getName())
+                                .append("type", cpu.getElementType().name())
+                ))
+                .append("rounds", log.getEntries())
+                .append("winner", winner)
+                .append("loser", loser);
     }
 }
