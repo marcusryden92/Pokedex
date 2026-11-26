@@ -10,7 +10,6 @@ public class BattleResult {
     private String date;
     private List<String> attacksUsed;
 
-    // Constructor for Jackson
     public BattleResult() {
         this.attacksUsed = new ArrayList<>();
     }
