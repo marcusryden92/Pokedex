@@ -17,12 +17,13 @@ public class ConsolePrinter {
                         "%n" +
                         "6. Starta strid%n" +
                         "7. Visa statistik%n" +
+                        "8. Visa stridshistorik (MongoDB)%n" +
                         "%n" +
-                        "8. Spara till fil%n" +
-                        "9. Ladda från fil%n" +
-                        "10. Återställ till seedad data%n" +
+                        "9. Spara till fil%n" +
+                        "10. Ladda från fil%n" +
+                        "11. Återställ till seedad data%n" +
                         "%n" +
-                        "11. Avsluta%n%n");
+                        "12. Avsluta%n%n");
     }
 
     public void printPokemonSelection() {
