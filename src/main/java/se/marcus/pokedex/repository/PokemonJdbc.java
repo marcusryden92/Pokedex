@@ -26,7 +26,7 @@ public class PokemonJdbc implements PokemonDao {
                 """;
 
         String attackSql = """
-                INSERT INTO attacks (name, base_dmg, accuracy, element_type_id, pokemon_id)
+                INSERT INTO attack (name, base_dmg, accuracy, element_type_id, pokemon_id)
                 VALUES (?, ?, ?, (SELECT id FROM element_type WHERE name = ?), ?)
                 RETURNING id
                 """;
@@ -196,11 +196,11 @@ public class PokemonJdbc implements PokemonDao {
                 """;
 
         String deleteAttacksSql = """
-                DELETE FROM attacks WHERE pokemon_id = ?
+                DELETE FROM attack WHERE pokemon_id = ?
                 """;
 
         String insertAttackSql = """
-                INSERT INTO attacks (name, base_dmg, accuracy, element_type_id, pokemon_id)
+                INSERT INTO attack (name, base_dmg, accuracy, element_type_id, pokemon_id)
                 VALUES (?, ?, ?, (SELECT id FROM element_type WHERE name = ?), ?)
                 RETURNING id
                 """;
@@ -322,7 +322,7 @@ public class PokemonJdbc implements PokemonDao {
         String attackSql = """
                 SELECT a.id, a.name, a.base_dmg, a.accuracy,
                        et.name AS element_type, a.pokemon_id
-                FROM attacks a
+                FROM attack a
                 JOIN element_type et ON et.id = a.element_type_id
                 ORDER BY a.id
                 """;

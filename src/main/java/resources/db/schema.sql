@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS attack;
 DROP TABLE IF EXISTS attacks;
 DROP TABLE IF EXISTS pokemon;
 DROP TABLE IF EXISTS element_type;
@@ -17,7 +18,7 @@ CREATE TABLE pokemon (
     current_hp INT NOT NULL CHECK (current_hp >= 0 AND current_hp <= max_hp)
 );
 
-CREATE TABLE attacks (
+CREATE TABLE attack (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name VARCHAR(80) NOT NULL,
     base_dmg INT NOT NULL CHECK (base_dmg > 0),

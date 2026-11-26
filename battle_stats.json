@@ -13,4 +13,9 @@
   "loser" : "Pikachu",
   "date" : "2026-10-15T05:31:52.129927500",
   "attacksUsed" : [ "Flamethrower" ]
+}, {
+  "winner" : "Mewtwo",
+  "loser" : "Pikachu",
+  "date" : "2026-11-26T17:57:52.071517700",
+  "attacksUsed" : [ "Electric Ball" ]
 } ]
