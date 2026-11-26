@@ -1,6 +1,9 @@
 package se.marcus.pokedex;
 
+import se.marcus.pokedex.config.MongoConfig;
 import se.marcus.pokedex.model.PokemonCollection;
+import se.marcus.pokedex.repository.BattleLogRepository;
+import se.marcus.pokedex.repository.MongoBattleLogRepository;
 import se.marcus.pokedex.service.PokemonManager;
 import se.marcus.pokedex.service.StatisticsService;
 import se.marcus.pokedex.ui.ConsolePrinter;
@@ -15,6 +18,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         ConsolePrinter printer = new ConsolePrinter();
         StatisticsService stats = new StatisticsService();
+        BattleLogRepository battleLogRepo = new MongoBattleLogRepository();
 
         PokemonManager manager = new PokemonManager(scanner, collection, printer);
 
@@ -23,7 +27,9 @@ public class Main {
             collection.seed();
         }
 
-        Menu menu = new Menu(manager, scanner, printer, stats);
+        Menu menu = new Menu(manager, scanner, printer, stats, battleLogRepo);
         menu.run(collection);
+
+        MongoConfig.close();
     }
 }
