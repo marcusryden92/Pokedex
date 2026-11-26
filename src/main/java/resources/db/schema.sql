@@ -14,8 +14,7 @@ CREATE TABLE pokemon (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name VARCHAR(80) NOT NULL UNIQUE,
     element_type_id INT NOT NULL REFERENCES element_type(id),
-    max_hp INT NOT NULL CHECK (max_hp > 0),
-    current_hp INT NOT NULL CHECK (current_hp >= 0 AND current_hp <= max_hp)
+    max_hp INT NOT NULL CHECK (max_hp > 0)
 );
 
 CREATE TABLE attack (

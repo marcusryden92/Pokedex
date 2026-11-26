@@ -20,8 +20,8 @@ public class PokemonJdbc implements PokemonDao {
     public boolean createPokemon(Pokemon pokemon) {
 
         String pokemonSql = """
-                INSERT INTO pokemon (name, element_type_id, max_hp, current_hp)
-                VALUES (?, (SELECT id FROM element_type WHERE name = ?), ?, ?)
+                INSERT INTO pokemon (name, element_type_id, max_hp)
+                VALUES (?, (SELECT id FROM element_type WHERE name = ?), ?)
                 RETURNING id
                 """;
 
@@ -41,7 +41,6 @@ public class PokemonJdbc implements PokemonDao {
                 pokemonPs.setString(1, pokemon.getName());
                 pokemonPs.setString(2, pokemon.getElementType().name());
                 pokemonPs.setInt(3, pokemon.getMaxHp());
-                pokemonPs.setInt(4, pokemon.getCurrentHp());
 
                 try (ResultSet rs = pokemonPs.executeQuery()) {
                     if (!rs.next()) {
@@ -91,8 +90,7 @@ public class PokemonJdbc implements PokemonDao {
                 UPDATE pokemon
                 SET name = ?,
                     element_type_id = (SELECT id FROM element_type WHERE name = ?),
-                    max_hp = ?,
-                    current_hp = ?
+                    max_hp = ?
                 WHERE id = ?
                 """;
 
@@ -105,8 +103,7 @@ public class PokemonJdbc implements PokemonDao {
                 ps.setString(1, pokemon.getName());
                 ps.setString(2, pokemon.getElementType().name());
                 ps.setInt(3, pokemon.getMaxHp());
-                ps.setInt(4, pokemon.getCurrentHp());
-                ps.setInt(5, pokemon.getId());
+                ps.setInt(4, pokemon.getId());
 
                 if (ps.executeUpdate() == 0) {
                     conn.rollback();
@@ -181,8 +178,8 @@ public class PokemonJdbc implements PokemonDao {
                 """;
 
         String insertPokemonSql = """
-                INSERT INTO pokemon (name, element_type_id, max_hp, current_hp)
-                VALUES (?, (SELECT id FROM element_type WHERE name = ?), ?, ?)
+                INSERT INTO pokemon (name, element_type_id, max_hp)
+                VALUES (?, (SELECT id FROM element_type WHERE name = ?), ?)
                 RETURNING id
                 """;
 
@@ -190,8 +187,7 @@ public class PokemonJdbc implements PokemonDao {
                 UPDATE pokemon
                 SET name = ?,
                     element_type_id = (SELECT id FROM element_type WHERE name = ?),
-                    max_hp = ?,
-                    current_hp = ?
+                    max_hp = ?
                 WHERE id = ?
                 """;
 
@@ -244,7 +240,6 @@ public class PokemonJdbc implements PokemonDao {
                         insertPokemonPs.setString(1, pokemon.getName());
                         insertPokemonPs.setString(2, pokemon.getElementType().name());
                         insertPokemonPs.setInt(3, pokemon.getMaxHp());
-                        insertPokemonPs.setInt(4, pokemon.getCurrentHp());
 
                         try (ResultSet rs = insertPokemonPs.executeQuery()) {
                             if (!rs.next()) {
@@ -260,8 +255,7 @@ public class PokemonJdbc implements PokemonDao {
                         updatePokemonPs.setString(1, pokemon.getName());
                         updatePokemonPs.setString(2, pokemon.getElementType().name());
                         updatePokemonPs.setInt(3, pokemon.getMaxHp());
-                        updatePokemonPs.setInt(4, pokemon.getCurrentHp());
-                        updatePokemonPs.setInt(5, pokemon.getId());
+                        updatePokemonPs.setInt(4, pokemon.getId());
 
                         if (updatePokemonPs.executeUpdate() == 0) {
                             throw new SQLException(
@@ -313,7 +307,7 @@ public class PokemonJdbc implements PokemonDao {
 
         String pokemonSql = """
                 SELECT p.id, p.name, et.name AS element_type,
-                       p.max_hp, p.current_hp
+                       p.max_hp
                 FROM pokemon p
                 JOIN element_type et ON et.id = p.element_type_id
                 ORDER BY p.id
@@ -359,7 +353,6 @@ public class PokemonJdbc implements PokemonDao {
                 pokemon.setType(ElementType.valueOf(
                         pokemonRs.getString("element_type")));
                 pokemon.setMaxHp(pokemonRs.getInt("max_hp"));
-                pokemon.setCurrentHp(pokemonRs.getInt("current_hp"));
 
                 pokemonList.add(pokemon);
             }
