@@ -2,6 +2,7 @@ package se.marcus.pokedex.model;
 
 import se.marcus.pokedex.exception.PokemonNotFoundException;
 import se.marcus.pokedex.persistence.JsonStorage;
+import se.marcus.pokedex.repository.PokemonDao;
 import se.marcus.pokedex.repository.PokemonJdbc;
 
 import java.nio.file.Path;
@@ -10,6 +11,7 @@ import java.util.List;
 
 public class PokemonCollection {
     private ArrayList<Pokemon> pokemonCollection = new ArrayList<>();
+    private final PokemonDao pokemonDao = new PokemonJdbc();
 
     private static final Path DATA_FILE = Path.of("pokedex.json");
 
@@ -41,11 +43,11 @@ public class PokemonCollection {
     }
 
     public void save() {
-        PokemonJdbc.savePokemonCollection(pokemonCollection);
+        pokemonDao.savePokemonCollection(pokemonCollection);
     }
 
     public void load() {
-        List<Pokemon> loaded = PokemonJdbc.getPokemonCollection();
+        List<Pokemon> loaded = pokemonDao.getPokemonCollection();
         pokemonCollection.clear();
         pokemonCollection.addAll(loaded);
     }
